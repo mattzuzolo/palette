@@ -11,19 +11,20 @@ const grid = document.getElementById("div--grid")
 const redInput = document.getElementById("input--red");
 const greenInput = document.getElementById("input--green");
 const blueInput = document.getElementById("input--blue");
+const hexInput = document.getElementById("input--hex");
 const colorSubmitButton = document.getElementById("button--color-submit")
 
 //User search
 let colorSearch;
 
 //Style settings
-const maxRGBValue = 255;
+const maxRgbValue = 255;
 
 document.addEventListener("DOMContentLoaded", () => {
   colorSearch = {
-    red: generateRandom(maxRGBValue),
-    green: generateRandom(maxRGBValue),
-    blue: generateRandom(maxRGBValue),
+    red: generateRandom(maxRgbValue),
+    green: generateRandom(maxRgbValue),
+    blue: generateRandom(maxRgbValue),
   }
   let selectedColors = createColorString(colorSearch);
   createGrid(selectedColors);
@@ -68,11 +69,11 @@ function handleSquareClick(event) {
   // console.log("YOU CLICKED ON", event.target.attributes.style.nodeValue)
   let nodeValueArray = event.target.attributes.style.nodeValue.split(";");
   let backgroundColorString = nodeValueArray.find(string => string.includes("background-color"))
-  updateUserInput(parseRGB(backgroundColorString));
+  updateUserInput(parseRgb(backgroundColorString));
 
 }
 
-function parseRGB(backgroundColorString){
+function parseRgb(backgroundColorString){
   let parsedArray = backgroundColorString.replace(/[^0-9$.,]/g, '').split(",")
   return colorSearch = {
     red: parsedArray[0],
@@ -85,7 +86,18 @@ function updateUserInput(colorObject){
   redInput.value = colorObject.red;
   greenInput.value = colorObject.green;
   blueInput.value = colorObject.blue;
+  let hexValue = convertRgbToHexCode(colorObject);
+  hexInput.value = hexValue;
+  return hexValue;
 }
+
+function convertRgbToHexCode({red, green, blue}){
+  return `${parseInt(red).toString(16)}${parseInt(green).toString(16)}${parseInt(blue).toString(16)}`
+}
+
+// function convertHexToRgb(hexString){
+//   return parseInt(hexString, 16)
+// }
 
 function generateRandom(num){
   return Math.floor(Math.random() * Math.floor(num));
@@ -95,7 +107,7 @@ function handleUserInput({red, green, blue}){
   let colorArray = [parseInt(red), parseInt(green), parseInt(blue)];
   return colorArray.map(color => {
     if(isNaN(color)){
-      return color = generateRandom(maxRGBValue);
+      return color = generateRandom(maxRgbValue);
     }
     else {
       return color;
