@@ -1,0 +1,33 @@
+* {
+  font-family: helvetica;
+}
+
+#div--nav-bar {
+  height: 7.5vh;
+  background-color: #313739;
+  padding: 2rem;
+}
+
+#div--grid {
+  display: flex;
+  flex-wrap: wrap;
+}
+
+.text {
+  color: white;
+  text-align: center;
+  overflow: hidden;
+  font-size: 1.5rem;
+}
+
+.form-elements--color{
+  font-size: 2rem;
+}
+
+.form--color-form{
+  font-size: 2rem;
+}
+
+.span--color-lock{
+  color: white;
+}
