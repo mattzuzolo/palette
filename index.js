@@ -13,6 +13,7 @@ const greenInput = document.getElementById("input--green");
 const blueInput = document.getElementById("input--blue");
 const hexInput = document.getElementById("input--hex");
 const colorSubmitButton = document.getElementById("button--color-submit")
+const hexSubmitButton = document.getElementById("button--hex-submit");
 
 //User search
 let colorSearch;
@@ -36,7 +37,21 @@ colorSubmitButton.onclick = function(event){
     green: greenInput.value,
     blue: blueInput.value,
   }
+  hexInput.value = convertRgbToHexCode(colorSearch);
+  convertRgbToHexCode(colorSearch)
   createGrid(colorSearch)
+}
+
+hexSubmitButton.onclick = function(event){
+  let hexString = hexInput.value;
+  hexInput.value = hexString;
+  updateRgbForm(convertHexToRgb(hexString));
+}
+
+function updateRgbForm({red, green, blue}){
+  redInput.value = red;
+  greenInput.value = green;
+  blueInput.value = blue;
 }
 
 
@@ -83,9 +98,7 @@ function parseRgb(backgroundColorString){
 }
 
 function updateUserInput(colorObject){
-  redInput.value = colorObject.red;
-  greenInput.value = colorObject.green;
-  blueInput.value = colorObject.blue;
+  updateRgbForm(colorObject)
   let hexValue = convertRgbToHexCode(colorObject);
   hexInput.value = hexValue;
   return hexValue;
@@ -95,9 +108,14 @@ function convertRgbToHexCode({red, green, blue}){
   return `${parseInt(red).toString(16)}${parseInt(green).toString(16)}${parseInt(blue).toString(16)}`
 }
 
-// function convertHexToRgb(hexString){
-//   return parseInt(hexString, 16)
-// }
+function convertHexToRgb(hexString){
+  let convertedString = parseInt(hexString, 16).toString();
+  return colorSearch = {
+    red: convertedString.substr(0,3),
+    green: convertedString.substr(3,3),
+    blue: convertedString.substr(6,3),
+  }
+}
 
 function generateRandom(num){
   return Math.floor(Math.random() * Math.floor(num));
