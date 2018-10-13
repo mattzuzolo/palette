@@ -55,7 +55,14 @@ hexSubmitButton.onclick = function(event){
 }
 function handleSquareClick(event) {
   //obtains styling from node's style upon click
-  let nodeValueArray = event.target.attributes.style.nodeValue.split(";");
+  let desiredNode;
+  if(event.target.nodeName === "P"){
+    desiredNode = event.target.parentNode;
+  }
+  else {
+    desiredNode = event.target;
+  }
+  let nodeValueArray = desiredNode.attributes.style.nodeValue.split(";");
   let backgroundColorString = nodeValueArray.find(string => string.includes("background-color"))
   let foundColorObject = parseRgb(backgroundColorString);
   let foundHexCode = convertRgbToHexCode(foundColorObject);
@@ -138,6 +145,7 @@ function generateRandom(num){
   return Math.floor(Math.random() * Math.floor(num));
 }
 function convertRgbToHexCode({red, green, blue}){
+  console.log(`${parseInt(red).toString(16)}${parseInt(green).toString(16)}${parseInt(blue).toString(16)}`)
   return `${parseInt(red).toString(16)}${parseInt(green).toString(16)}${parseInt(blue).toString(16)}`
 }
 function convertHexToRgb(hexString){
@@ -153,10 +161,6 @@ function convertHexToRgb(hexString){
 
 
 //Declarative inputs
-function updateAllForms(rgbObject, hexString){
-  updateRgbForm(rgbObject)
-  updateHexForm(hexString)
-}
 function updateRgbForm({red, green, blue}){
   redInput.value = red;
   greenInput.value = green;
@@ -164,4 +168,8 @@ function updateRgbForm({red, green, blue}){
 }
 function updateHexForm(hexString){
   hexInput.value = hexString;
+}
+function updateAllForms(rgbObject, hexString){
+  updateRgbForm(rgbObject)
+  updateHexForm(hexString)
 }
