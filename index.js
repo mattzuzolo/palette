@@ -40,10 +40,6 @@ colorSubmitButton.onclick = function(event){
     green: greenInput.value,
     blue: blueInput.value,
   }
-  //Updates Hex form to display expected hex code
-  //Updating fields in declarative manner
-  updateRgbForm(colorSearch);
-  updateHexForm(convertRgbToHexCode(colorSearch));
   //Updates grid based on new RGB color
   createGrid(colorSearch)
 }
@@ -51,15 +47,19 @@ hexSubmitButton.onclick = function(event){
   //This function is invoked when Hex form is submitted
   //obtains hexString from submitted form and updates all fields with appropriate info
   let hexString = hexInput.value;
+  let rgbValue = convertHexToRgb(hexString);
   //Updating fields in declarative manner
   updateHexForm(hexString);
-  updateRgbForm(convertHexToRgb(hexString));
+  updateRgbForm(rgbValue);
+  createGrid(rgbValue);
 }
 function handleSquareClick(event) {
   //obtains styling from node's style upon click
   let nodeValueArray = event.target.attributes.style.nodeValue.split(";");
   let backgroundColorString = nodeValueArray.find(string => string.includes("background-color"))
-  updateUserInput(parseRgb(backgroundColorString));
+  let foundColorObject = parseRgb(backgroundColorString);
+  let foundHexCode = convertRgbToHexCode(foundColorObject);
+  updateAllForms(foundColorObject,foundHexCode);
 }
 
 
@@ -75,7 +75,7 @@ function parseRgb(backgroundColorString){
 }
 function handleUserInput({red, green, blue}){
   let colorArray = [parseInt(red), parseInt(green), parseInt(blue)];
-  return colorArray.map(color => {
+  let completeArray = colorArray.map(color => {
     if(isNaN(color)){
       return color = generateRandom(maxRgbValue);
     }
@@ -83,11 +83,15 @@ function handleUserInput({red, green, blue}){
       return color;
     }
   })
+  return {
+    red: completeArray[0],
+    green: completeArray[1],
+    blue: completeArray[2],
+  }
 }
-function createColorString(colorArray){
-  return `rgb(${colorArray[0]}, ${colorArray[1]}, ${colorArray[2]})`;
+function createColorString(colorObject){
+  return `rgb(${colorObject.red}, ${colorObject.green}, ${colorObject.blue})`;
 }
-
 
 
 //Grid management
@@ -103,19 +107,21 @@ function createGrid(colorSearch){
   for(let i = 0; i < gridSize; i++){
     //Find or generate colors that will determine each square's css
     //functions cleans and prepare user input to be used below. Generates random colors if neccessary
-    let selectedColors = createColorString(handleUserInput(colorSearch));
+    let selectedColorsObject = handleUserInput(colorSearch);
+    let selectedColorsString = createColorString(selectedColorsObject)
 
     //Create text nodes that display square color
     let text = document.createElement("p");
     text.className = "text";
-    text.innerText = "#f7cc47";
+    //Update each square to display current hex color
+    text.innerText = `#${convertRgbToHexCode(selectedColorsObject)}`;
 
     //Create squares and add selectors and dynamic styling
     let square = document.createElement("div");
     square.className = `square ${i}`;
     square.style.width = squareSize;
     square.style.paddingBottom = squareSize;
-    square.style.backgroundColor = selectedColors;
+    square.style.backgroundColor = selectedColorsString;
 
     //Append new nodes to display in DOM
     square.append(text);
@@ -144,6 +150,7 @@ function convertHexToRgb(hexString){
     blue: parseInt(bb, 16),
   }
 }
+
 
 //Declarative inputs
 function updateAllForms(rgbObject, hexString){
