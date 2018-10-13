@@ -21,7 +21,9 @@ let colorSearch;
 //Style settings
 const maxRgbValue = 255;
 
+//Event handlers
 document.addEventListener("DOMContentLoaded", () => {
+  //Page generates random colors on DOMContentLoaded
   colorSearch = {
     red: generateRandom(maxRgbValue),
     green: generateRandom(maxRgbValue),
@@ -30,65 +32,40 @@ document.addEventListener("DOMContentLoaded", () => {
   let selectedColors = createColorString(colorSearch);
   createGrid(selectedColors);
 })
-
 colorSubmitButton.onclick = function(event){
+  //This function is invoked when RGB form is submitted
+  //save colors from user input in object
   colorSearch = {
     red: redInput.value,
     green: greenInput.value,
     blue: blueInput.value,
   }
-  hexInput.value = convertRgbToHexCode(colorSearch);
-  convertRgbToHexCode(colorSearch)
+  //Updates Hex form to display expected hex code
+  //Updating fields in declarative manner
+  updateRgbForm(colorSearch);
+  updateHexForm(convertRgbToHexCode(colorSearch));
+  //Updates grid based on new RGB color
   createGrid(colorSearch)
 }
-
 hexSubmitButton.onclick = function(event){
+  //This function is invoked when Hex form is submitted
+  //obtains hexString from submitted form and updates all fields with appropriate info
   let hexString = hexInput.value;
-  hexInput.value = hexString;
+  //Updating fields in declarative manner
+  updateHexForm(hexString);
   updateRgbForm(convertHexToRgb(hexString));
 }
-
-function updateRgbForm({red, green, blue}){
-  redInput.value = red;
-  greenInput.value = green;
-  blueInput.value = blue;
-}
-
-
-function createGrid(colorSearch){
-  resetGrid("square");
-  for(let i = 0; i < gridSize; i++){
-    let selectedColors = createColorString(handleUserInput(colorSearch));
-
-    //Create text nodes
-    let text = document.createElement("p");
-    text.className = "text";
-    text.innerText = "#f7cc47";
-
-    //Create squares
-    let square = document.createElement("div");
-    square.className = `square ${i}`;
-    square.style.width = squareSize;
-    square.style.paddingBottom = squareSize;
-    square.style.backgroundColor = selectedColors;
-
-    //Append new nodes to display in DOM
-    square.append(text);
-    grid.append(square);
-
-    square.addEventListener("click", handleSquareClick);
-  }
-}
-
 function handleSquareClick(event) {
-  // console.log("YOU CLICKED ON", event.target.attributes.style.nodeValue)
+  //obtains styling from node's style upon click
   let nodeValueArray = event.target.attributes.style.nodeValue.split(";");
   let backgroundColorString = nodeValueArray.find(string => string.includes("background-color"))
   updateUserInput(parseRgb(backgroundColorString));
-
 }
 
+
+//Input handling
 function parseRgb(backgroundColorString){
+  //parses style in form of string obtained from DOM
   let parsedArray = backgroundColorString.replace(/[^0-9$.,]/g, '').split(",")
   return colorSearch = {
     red: parsedArray[0],
@@ -96,31 +73,6 @@ function parseRgb(backgroundColorString){
     blue: parsedArray[2],
   }
 }
-
-function updateUserInput(colorObject){
-  updateRgbForm(colorObject)
-  let hexValue = convertRgbToHexCode(colorObject);
-  hexInput.value = hexValue;
-  return hexValue;
-}
-
-function convertRgbToHexCode({red, green, blue}){
-  return `${parseInt(red).toString(16)}${parseInt(green).toString(16)}${parseInt(blue).toString(16)}`
-}
-
-function convertHexToRgb(hexString){
-  let convertedString = parseInt(hexString, 16).toString();
-  return colorSearch = {
-    red: convertedString.substr(0,3),
-    green: convertedString.substr(3,3),
-    blue: convertedString.substr(6,3),
-  }
-}
-
-function generateRandom(num){
-  return Math.floor(Math.random() * Math.floor(num));
-}
-
 function handleUserInput({red, green, blue}){
   let colorArray = [parseInt(red), parseInt(green), parseInt(blue)];
   return colorArray.map(color => {
@@ -132,14 +84,77 @@ function handleUserInput({red, green, blue}){
     }
   })
 }
-
 function createColorString(colorArray){
   return `rgb(${colorArray[0]}, ${colorArray[1]}, ${colorArray[2]})`;
 }
 
+
+
+//Grid management
 function resetGrid(className){
   let squares = document.getElementsByClassName(className);
   while (0 < squares.length){
     squares[0].parentNode.removeChild(squares[0]);
   }
+}
+function createGrid(colorSearch){
+  //Reset grid so that only one grid displays at any given moment
+  resetGrid("square");
+  for(let i = 0; i < gridSize; i++){
+    //Find or generate colors that will determine each square's css
+    //functions cleans and prepare user input to be used below. Generates random colors if neccessary
+    let selectedColors = createColorString(handleUserInput(colorSearch));
+
+    //Create text nodes that display square color
+    let text = document.createElement("p");
+    text.className = "text";
+    text.innerText = "#f7cc47";
+
+    //Create squares and add selectors and dynamic styling
+    let square = document.createElement("div");
+    square.className = `square ${i}`;
+    square.style.width = squareSize;
+    square.style.paddingBottom = squareSize;
+    square.style.backgroundColor = selectedColors;
+
+    //Append new nodes to display in DOM
+    square.append(text);
+    grid.append(square);
+
+    //Add event listener to user can update form by clicking a square
+    square.addEventListener("click", handleSquareClick);
+  }
+}
+
+
+//Math functions
+function generateRandom(num){
+  return Math.floor(Math.random() * Math.floor(num));
+}
+function convertRgbToHexCode({red, green, blue}){
+  return `${parseInt(red).toString(16)}${parseInt(green).toString(16)}${parseInt(blue).toString(16)}`
+}
+function convertHexToRgb(hexString){
+  let rr = hexString.substr(0,2);
+  let gg = hexString.substr(2,2);
+  let bb = hexString.substr(4,2);
+  return {
+    red: parseInt(rr, 16),
+    green: parseInt(gg, 16),
+    blue: parseInt(bb, 16),
+  }
+}
+
+//Declarative inputs
+function updateAllForms(rgbObject, hexString){
+  updateRgbForm(rgbObject)
+  updateHexForm(hexString)
+}
+function updateRgbForm({red, green, blue}){
+  redInput.value = red;
+  greenInput.value = green;
+  blueInput.value = blue;
+}
+function updateHexForm(hexString){
+  hexInput.value = hexString;
 }
