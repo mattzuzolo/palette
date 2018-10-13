@@ -7,23 +7,29 @@
   </head>
   <body>
     <div id="div--grid"></div>
-    <div id="div--nav-bar">
-      <form class="form--color-form" action="index.html" method="post">
-        <div class="div--inputs">
-          <div class="div--input" id="red-div">
-            <input id="input--red" type="text" name="red" class="input--color-input  form-elements--color" value="5" placeholder="red">
-          </div>
-          <div class="div--input" id="green-div">
-            <input id="input--green" type="text" name="green" class="input--color-input  form-elements--color" value="200" placeholder="green">
-          </div>
-          <div class="div--input" id="blue-div">
-            <input id="input--blue" type="text" name="blue" class="input--color-input  form-elements--color" value="" placeholder="blue">
-          </div>
-        </div>
-
-        <button id="button--color-submit" type="button" name="button" class="form-elements--color">Submit</button>
-      </form>
+    <div class="div--right-column">
+      <div class="div--info">
+        <h1>Color Palette</h1>
+        <p><strong>How it works:</strong><br/>Input RGB values between 0 and 255 below. Fields left blank will be randomly generated and produce different shades based on your selected values.</p>
+      </div>
+      <hr>
+      <div id="div--nav-bar">
+        <h2>RGB Search</h2>
+        <form class="form--color-form" action="index.html">
+          <input id="input--red" type="text" name="red" class="input--color-input  form-elements--color" value="5" placeholder="red">
+          <input id="input--green" type="text" name="green" class="input--color-input  form-elements--color" value="200" placeholder="green">
+          <input id="input--blue" type="text" name="blue" class="input--color-input  form-elements--color" value="" placeholder="blue">
+          <button id="button--color-submit" type="button" name="button" class="form-elements--color">Submit</button>
+        </form>
+        <hr>
+        <h2>Hex Search</h2>
+        <form class="form--hex-form" action="index.html">
+          <input id="input--hex" type="text" name="hex" class="input--color-hex" value="" placeholder="#ffffff">
+          <button id="button--hex-submit" type="button" name="button" class="form-elements--hex">Submit</button>
+        </form>
+      </div>
     </div>
+
 
 
 

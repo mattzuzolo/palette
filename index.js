@@ -52,14 +52,39 @@ function createGrid(colorSearch){
     //Create squares
     let square = document.createElement("div");
     square.className = `square ${i}`;
-    square.style.width = "20%";
-    square.style.paddingBottom = "20%";
+    square.style.width = squareSize;
+    square.style.paddingBottom = squareSize;
     square.style.backgroundColor = selectedColors;
 
     //Append new nodes to display in DOM
     square.append(text);
     grid.append(square);
+
+    square.addEventListener("click", handleSquareClick);
   }
+}
+
+function handleSquareClick(event) {
+  // console.log("YOU CLICKED ON", event.target.attributes.style.nodeValue)
+  let nodeValueArray = event.target.attributes.style.nodeValue.split(";");
+  let backgroundColorString = nodeValueArray.find(string => string.includes("background-color"))
+  updateUserInput(parseRGB(backgroundColorString));
+
+}
+
+function parseRGB(backgroundColorString){
+  let parsedArray = backgroundColorString.replace(/[^0-9$.,]/g, '').split(",")
+  return colorSearch = {
+    red: parsedArray[0],
+    green: parsedArray[1],
+    blue: parsedArray[2],
+  }
+}
+
+function updateUserInput(colorObject){
+  redInput.value = colorObject.red;
+  greenInput.value = colorObject.green;
+  blueInput.value = colorObject.blue;
 }
 
 function generateRandom(num){

@@ -6,9 +6,14 @@ body {
   display: flex;
 }
 
-#div--nav-bar {
-  height: 7.5vh;
-  padding: 2rem;
+input {
+  margin-bottom: 1rem;
+  font-size: 2rem;
+}
+
+button {
+  font-size: 2rem;
+  margin-bottom: 1rem;
 }
 
 #div--grid {
@@ -16,12 +21,18 @@ body {
   flex-wrap: wrap;
 }
 
+.div--right-column{
+  max-width: 25vh;
+  margin-left: 2.5rem;
+  margin-right: 2.5rem;
+}
+
+.form--color-form{
+  text-align: left;
+}
+
 .text {
   color: white;
   text-align: center;
   font-size: 1.5rem;
-}
-
-.form-elements--color{
-  font-size: 2rem;
 }
