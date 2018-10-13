@@ -1,6 +1,6 @@
 //Grid setup
 //Adjust gridHeight value to change grid size
-const gridHeight = 10;
+const gridHeight = 5;
 const gridSize = gridHeight ** 2;
 //padding-bottom and width must be 1:1 ratio for div to be square.
 const squareSize = `${100 / gridHeight}%`;
@@ -52,8 +52,8 @@ function createGrid(colorSearch){
     //Create squares
     let square = document.createElement("div");
     square.className = `square ${i}`;
-    square.style.width = squareSize;
-    square.style.paddingBottom = squareSize;
+    square.style.width = "20%";
+    square.style.paddingBottom = "20%";
     square.style.backgroundColor = selectedColors;
 
     //Append new nodes to display in DOM
