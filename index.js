@@ -11,7 +11,6 @@ const grid = document.getElementById("div--grid")
 const redInput = document.getElementById("input--red");
 const greenInput = document.getElementById("input--green");
 const blueInput = document.getElementById("input--blue");
-const hexInput = document.getElementById("input--hex");
 const colorSubmitButton = document.getElementById("button--color-submit")
 
 //User search
@@ -20,54 +19,46 @@ let colorSearch;
 //Style settings
 const maxRGBValue = 255;
 
-function createGrid(colorPicker){
-  for (let i = 0; i < gridSize; i++){
-    let square = document.createElement("div");
-    let text = document.createElement("p");
-    text.className = "text";
-    text.innerText = "#f7cc47";
-    square.className = `square ${i}`;
-    square.style.width = squareSize;
-    square.style.paddingBottom = squareSize;
-    square.style.backgroundColor = colorPicker();
-    square.append(text);
-    grid.append(square);
+document.addEventListener("DOMContentLoaded", () => {
+  colorSearch = {
+    red: generateRandom(maxRGBValue),
+    green: generateRandom(maxRGBValue),
+    blue: generateRandom(maxRGBValue),
   }
-}
+  let selectedColors = createColorString(colorSearch);
+  createGrid(selectedColors);
+})
 
 colorSubmitButton.onclick = function(event){
   colorSearch = {
-    red: checkRGB(redInput.value),
-    green: checkRGB(greenInput.value),
-    blue: checkRGB(blueInput.value),
-    hex: checkHex(hexInput.value),
+    red: redInput.value,
+    green: greenInput.value,
+    blue: blueInput.value,
   }
-  redInput.value = colorSearch.red;
-  greenInput.value = colorSearch.green;
-  blueInput.value = colorSearch.blue;
-  hexInput.value = colorSearch.hex;
+  createGrid(colorSearch)
 }
 
-function checkRGB(value){
-  if (value > 255){
-    return value = 255;
-  }
-  else if (value < 0){
-    return value = 0;
-  }
-  return parseInt(value);
-}
 
-function checkHex(value){
-  value = value.replace(/[^A-Fa-f0-9]/g, "");
-  if(value.length === 3){
-    return value;
-  }
-  else if(value.length === 6){
-    return value;
-  }
-  else{
-    return "ffffff"
+function createGrid(colorSearch){
+  resetGrid("square");
+  for(let i = 0; i < gridSize; i++){
+    let selectedColors = createColorString(handleUserInput(colorSearch));
+
+    //Create text nodes
+    let text = document.createElement("p");
+    text.className = "text";
+    text.innerText = "#f7cc47";
+
+    //Create squares
+    let square = document.createElement("div");
+    square.className = `square ${i}`;
+    square.style.width = squareSize;
+    square.style.paddingBottom = squareSize;
+    square.style.backgroundColor = selectedColors;
+
+    //Append new nodes to display in DOM
+    square.append(text);
+    grid.append(square);
   }
 }
 
@@ -75,8 +66,25 @@ function generateRandom(num){
   return Math.floor(Math.random() * Math.floor(num));
 }
 
-function randomColor(){
-  return `rgb(${generateRandom(maxRGBValue)}, ${generateRandom(maxRGBValue)}, ${generateRandom(maxRGBValue)})`
+function handleUserInput({red, green, blue}){
+  let colorArray = [parseInt(red), parseInt(green), parseInt(blue)];
+  return colorArray.map(color => {
+    if(isNaN(color)){
+      return color = generateRandom(maxRGBValue);
+    }
+    else {
+      return color;
+    }
+  })
 }
 
-createGrid(randomColor)
+function createColorString(colorArray){
+  return `rgb(${colorArray[0]}, ${colorArray[1]}, ${colorArray[2]})`;
+}
+
+function resetGrid(className){
+  let squares = document.getElementsByClassName(className);
+  while (0 < squares.length){
+    squares[0].parentNode.removeChild(squares[0]);
+  }
+}
