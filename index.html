@@ -2,6 +2,7 @@
 <html lang="en" dir="ltr">
   <head>
     <meta charset="utf-8">
+    <base target="_blank">
     <link rel="stylesheet" href="style.css">
     <title>Palette</title>
   </head>
@@ -11,6 +12,7 @@
       <div class="div--info">
         <h1>Color Palette</h1>
         <p><strong>How it works:</strong><br/>Input RGB values between 0 and 255 below. Fields left blank will be randomly generated and produce different shades based on your selected values.</p>
+        <p>Click on any square in the grid to learn the RGB values and hex codes for the desired color.</p>
       </div>
       <hr>
       <div id="div--nav-bar">
@@ -27,6 +29,12 @@
           <label>#</label><input id="input--hex" type="text" name="hex" class="input--color-hex" value="" placeholder="ffffff">
           <button id="button--hex-submit" type="button" name="button" class="form-elements--hex">Submit</button>
         </form>
+        <hr>
+        <div class="div--bio">
+          <span class="span--bio-detail">See the code on <a href="https://github.com/mattzuzolo/palette">GitHub</a>!</span>
+          <br>
+          <span class="span--bio-detail">Created by <a href="http://mattzuzolo.com/">Matt Zuzolo</a></span>
+        </div>
       </div>
     </div>
 
