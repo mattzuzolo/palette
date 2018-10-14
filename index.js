@@ -15,6 +15,7 @@ const hexInput = document.getElementById("input--hex");
 const colorSubmitButton = document.getElementById("button--color-submit")
 const hexSubmitButton = document.getElementById("button--hex-submit");
 const rightColumn = document.getElementById("div--right-column");
+const sampleColor = document.getElementById("div--sample")
 
 //User search
 let colorSearch;
@@ -65,6 +66,7 @@ function handleSquareClick(event) {
   let backgroundColorString = nodeValueArray.find(string => string.includes("background-color"))
   let foundColorObject = parseRgb(backgroundColorString);
   let foundHexCode = convertRgbToHexCode(foundColorObject);
+  sampleColor.style.backgroundColor = createColorString(foundColorObject);
   updateAllForms(foundColorObject,foundHexCode);
 }
 

@@ -66,3 +66,9 @@ span {
 .square {
   border: solid white 0.1vh;
 }
+
+#div--sample {
+  width: 100%;
+  height: 20vh;
+  margin-bottom: 1rem;
+}
