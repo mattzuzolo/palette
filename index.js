@@ -25,12 +25,15 @@ const maxRgbValue = 255;
 
 //Event handlers
 document.addEventListener("DOMContentLoaded", () => {
+
   //Page generates random colors on DOMContentLoaded
   colorSearch = {
     red: generateRandomStringNumber(maxRgbValue),
     green: generateRandomStringNumber(maxRgbValue),
-    blue: generateRandomStringNumber(maxRgbValue),
+    blue: "",
   }
+  let foundHexCode = convertRgbToHexCode(colorSearch);
+  updateAllForms(colorSearch,foundHexCode);
   createGrid(colorSearch);
 })
 colorSubmitButton.onclick = function(event){
@@ -158,6 +161,14 @@ function generateRandomStringNumber(num){
   return prepareRgbValue(Math.floor(Math.random() * Math.floor(num))).toString();
 }
 function convertRgbToHexCode({red, green, blue}){
+  if(red == ""){
+    red = generateRandomStringNumber(maxRgbValue);
+  } else if(green == ""){
+    green = generateRandomStringNumber(maxRgbValue);
+  }
+  else if(blue === ""){
+    blue = generateRandomStringNumber(maxRgbValue);
+  }
   return `${parseInt(red).toString(16)}${parseInt(green).toString(16)}${parseInt(blue).toString(16)}`
 }
 function convertHexToRgb(hexString){
