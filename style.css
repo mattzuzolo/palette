@@ -72,3 +72,7 @@ span {
   height: 20vh;
   margin-bottom: 1rem;
 }
+
+#div--selected-color{
+  display: none;
+}

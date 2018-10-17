@@ -16,6 +16,7 @@ const colorSubmitButton = document.getElementById("button--color-submit")
 const hexSubmitButton = document.getElementById("button--hex-submit");
 const rightColumn = document.getElementById("div--right-column");
 const sampleColor = document.getElementById("div--sample")
+const selectedColorDiv = document.getElementById("div--selected-color");
 
 //User search
 let colorSearch;
@@ -57,6 +58,9 @@ hexSubmitButton.onclick = function(event){
   createGrid(rgbValue);
 }
 function handleSquareClick(event) {
+  //Display selectedColor div when a square is clicked for the first time
+  selectedColorDiv.style.display = "inline";
+  
   //obtains styling from node's style upon click
   let desiredNode;
   if(event.target.nodeName === "P"){
