@@ -6,17 +6,17 @@ const gridSize = gridHeight ** 2;
 const squareSize = `${(100 / gridHeight) - 0.25}%`;
 
 //DOM ELEMENTS
-const navBar = document.getElementById("div--nav-bar")
 const grid = document.getElementById("div--grid")
+const rightColumn = document.getElementById("div--right-column");
+const navBar = document.getElementById("div--nav-bar")
+const selectedColorDiv = document.getElementById("div--selected-color");
+const sampleColor = document.getElementById("div--sample")
 const redInput = document.getElementById("input--red");
 const greenInput = document.getElementById("input--green");
 const blueInput = document.getElementById("input--blue");
 const hexInput = document.getElementById("input--hex");
 const colorSubmitButton = document.getElementById("button--color-submit")
 const hexSubmitButton = document.getElementById("button--hex-submit");
-const rightColumn = document.getElementById("div--right-column");
-const sampleColor = document.getElementById("div--sample")
-const selectedColorDiv = document.getElementById("div--selected-color");
 
 //User search
 let colorSearch;
@@ -60,7 +60,7 @@ hexSubmitButton.onclick = function(event){
 function handleSquareClick(event) {
   //Display selectedColor div when a square is clicked for the first time
   selectedColorDiv.style.display = "inline";
-  
+
   //obtains styling from node's style upon click
   let desiredNode;
   if(event.target.nodeName === "P"){
