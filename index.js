@@ -10,6 +10,8 @@ const grid = document.getElementById("div--grid")
 const rightColumn = document.getElementById("div--right-column");
 const navBar = document.getElementById("div--nav-bar")
 const selectedColorDiv = document.getElementById("div--selected-color");
+const colorHistoryDiv = document.getElementById("div--color-history");
+const colorHistoryList = document.getElementById("ul--color-history-list");
 const sampleColor = document.getElementById("div--sample")
 const redInput = document.getElementById("input--red");
 const greenInput = document.getElementById("input--green");
@@ -18,8 +20,10 @@ const hexInput = document.getElementById("input--hex");
 const colorSubmitButton = document.getElementById("button--color-submit")
 const hexSubmitButton = document.getElementById("button--hex-submit");
 
+
 //User search
 let colorSearch;
+let colorHistory = [];
 
 //Style settings
 const maxRgbValue = 255;
@@ -72,6 +76,7 @@ function handleSquareClick(event) {
   let foundHexCode = convertRgbToHexCode(foundColorObject);
   sampleColor.style.backgroundColor = createColorString(foundColorObject);
   updateAllForms(foundColorObject,foundHexCode);
+  addColorToHistory(foundHexCode);
 }
 
 //Input handling
@@ -213,4 +218,32 @@ function updateHexForm(hexString){
 function updateAllForms(rgbObject, hexString){
   updateRgbForm(rgbObject)
   updateHexForm(hexString)
+}
+
+//Color history
+function addColorToHistory(hexCode){
+  if(colorHistoryDiv.style.display !== "none"){
+    colorHistoryDiv.style.display = "inline";
+  }
+  let li = document.createElement("li");
+  let colorSample = document.createElement("div");
+  let colorSpan = document.createElement("span");
+  li.className = "li--history"
+  colorSample.className = "div--sample-li"
+
+  // li.innerHTML(colorSample);
+  colorSample.style.height = "2rem";
+  colorSample.style.width = "2rem";
+  colorSample.margin = "0";
+  colorSample.style.backgroundColor = `#${hexCode}`;
+
+  colorSpan.innerText = `#${hexCode}`
+
+
+  // li.innerText = `#${hexCode}`;
+  li.append(colorSample);
+  li.append(colorSpan);
+  colorHistoryList.append(li);
+  console.log("colorHistoryList", colorHistoryList)
+
 }
