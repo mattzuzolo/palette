@@ -27,11 +27,8 @@ const maxRgbValue = 255;
 //Event handlers
 document.addEventListener("DOMContentLoaded", () => {
   //Page generates random colors on DOMContentLoaded
-  colorSearch = {
-    red: generateRandomStringNumber(maxRgbValue),
-    green: generateRandomStringNumber(maxRgbValue),
-    blue: "",
-  }
+  //generate a random object that will create a random RGB value
+  colorSearch = randomColorObj();
   let foundHexCode = convertRgbToHexCode(colorSearch);
   updateAllForms(colorSearch,foundHexCode);
   createGrid(colorSearch);
@@ -158,6 +155,24 @@ function createGrid(colorSearch){
 
 
 //Math functions
+function randomColorObj(){
+  let randomObj = {};
+  let colorArray = ["red", "green", "blue"];
+  randomObj[colorArray[generateRandom(3)]] = generateRandomStringNumber(maxRgbValue);
+  randomObj[colorArray[generateRandom(3)]] = generateRandomStringNumber(maxRgbValue);
+  if(!randomObj["red"]){
+    randomObj["red"] = "";
+  }
+  if(!randomObj["green"]){
+    randomObj["green"] = "";
+  }
+  if(!randomObj["blue"]){
+    randomObj["blue"] = "";
+  }
+  return randomObj;
+}
+
+
 function generateRandom(num){
   return Math.floor(Math.random() * Math.floor(num));
 }
