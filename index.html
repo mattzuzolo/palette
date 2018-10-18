@@ -11,22 +11,33 @@
     <div class="div--right-column">
       <div class="div--info">
         <h1>Color Palette</h1>
-        <p><strong>How it works:</strong><br/>Input RGB values between 0 and 255 below. Fields left blank will be randomly generated and produce different shades based on your selected values.</p>
+        <h2>How it works:</h2>
+        <p>Input RGB values between 0 and 255 below. Fields left blank will be randomly generated and produce different shades based on your selected values.</p>
         <p>Click on any square in the grid to learn the RGB values and hex codes for the desired color.</p>
       </div>
       <hr>
       <div id="div--nav-bar">
+
         <h2>RGB Values</h2>
         <form class="form--color-form" action="index.html">
-          <label>r</label><input id="input--red" type="text" name="red" class="input--color-input  form-elements--color" value="" placeholder="red">
-          <label>g</label><input id="input--green" type="text" name="green" class="input--color-input  form-elements--color" value="" placeholder="green">
-          <label>b</label><input id="input--blue" type="text" name="blue" class="input--color-input  form-elements--color" value="" placeholder="blue">
+          <div id="red-input" class="input-lines">
+            <label>r:</label><input id="input--red" type="text" name="red" class="input--color-input  form-elements--color" value="" placeholder="0 - 255">
+          </div>
+          <div id="green-input" class="input-lines">
+            <label>g:</label><input id="input--green" type="text" name="green" class="input--color-input  form-elements--color" value="" placeholder="0 - 255">
+          </div>
+          <div id="blue-input" class="input-lines">
+            <label>b:</label><input id="input--blue" type="text" name="blue" class="input--color-input  form-elements--color" value="" placeholder="0 - 255">
+          </div>
           <button id="button--color-submit" type="button" name="button" class="form-elements--color">Submit</button>
         </form>
+
         <hr>
-        <h2>Hex Values</h2>
+
+        <h2>Hex Value</h2>
         <form class="form--hex-form" action="index.html">
           <label>#</label><input id="input--hex" type="text" name="hex" class="input--color-hex" value="" placeholder="ffffff">
+          <br>
           <button id="button--hex-submit" type="button" name="button" class="form-elements--hex">Submit</button>
         </form>
         <hr>
@@ -36,16 +47,15 @@
           </div>
           <hr>
         </div>
+
         <div class="div--bio">
           <span class="span--bio-detail">See the code on <a href="https://github.com/mattzuzolo/palette">GitHub</a>!</span>
           <br>
           <span class="span--bio-detail">Created by <a href="http://mattzuzolo.com/">Matt Zuzolo</a></span>
         </div>
+        
       </div>
     </div>
-
-
-
 
     <script type="text/javascript" src="index.js"></script>
   </body>

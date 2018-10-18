@@ -136,7 +136,7 @@ function createGrid(colorSearch){
 
     //Create text nodes that display square color
     let text = document.createElement("p");
-    text.className = "text";
+    text.className = "p--square-hex-value";
     //Update each square to display current hex color
     text.innerText = `#${convertRgbToHexCode(selectedColorsObject)}`;
 
