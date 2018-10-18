@@ -30,7 +30,7 @@ document.addEventListener("DOMContentLoaded", () => {
   //generate a random object that will create a random RGB value
   colorSearch = randomColorObj();
   let foundHexCode = convertRgbToHexCode(colorSearch);
-  updateAllForms(colorSearch,foundHexCode);
+  updateRgbForm(colorSearch);
   createGrid(colorSearch);
 })
 colorSubmitButton.onclick = function(event){
