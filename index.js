@@ -222,6 +222,7 @@ function updateAllForms(rgbObject, hexString){
 
 //Color history
 function addColorToHistory(hexCode){
+  let rgbObject = convertHexToRgb(hexCode);
   if(colorHistoryDiv.style.display !== "none"){
     colorHistoryDiv.style.display = "inline";
   }
@@ -244,12 +245,8 @@ function addColorToHistory(hexCode){
   colorHistoryList.append(li);
 
   li.onclick = function(event){
-    //This function is invoked when Hex form is submitted
-    //obtains hexString from submitted form and updates all fields with appropriate info
-    let hexString = hexCode;
-    let rgbValue = convertHexToRgb(hexString);
-    //Updating fields in declarative manner
-    updateAllForms(rgbValue, hexString)
-    createGrid(rgbValue);
+    //update selectedColor when click on history li
+    sampleColor.style.backgroundColor = `#${hexCode}`;
+    updateAllForms(rgbObject, hexCode)
   }
 }
