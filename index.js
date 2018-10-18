@@ -242,4 +242,14 @@ function addColorToHistory(hexCode){
   li.append(colorSample);
   li.append(colorSpan);
   colorHistoryList.append(li);
+
+  li.onclick = function(event){
+    //This function is invoked when Hex form is submitted
+    //obtains hexString from submitted form and updates all fields with appropriate info
+    let hexString = hexCode;
+    let rgbValue = convertHexToRgb(hexString);
+    //Updating fields in declarative manner
+    updateAllForms(rgbValue, hexString)
+    createGrid(rgbValue);
+  }
 }
