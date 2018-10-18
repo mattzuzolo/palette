@@ -94,7 +94,6 @@ button {
     list-style: none;
     padding: 0;
   }
-  
   .li--history{
     display: flex;
     margin-top: 0.5rem;
@@ -103,6 +102,8 @@ button {
 
   .div--sample-li{
     margin-right: 1rem;
+    height: 2rem;
+    width: 2rem;
   }
 
 .span--bio-detail {

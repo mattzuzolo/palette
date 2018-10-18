@@ -225,25 +225,21 @@ function addColorToHistory(hexCode){
   if(colorHistoryDiv.style.display !== "none"){
     colorHistoryDiv.style.display = "inline";
   }
+  //Create elements that will contain color and text data
   let li = document.createElement("li");
   let colorSample = document.createElement("div");
   let colorSpan = document.createElement("span");
+
+  //Add selectors for CSS to style
   li.className = "li--history"
   colorSample.className = "div--sample-li"
 
-  // li.innerHTML(colorSample);
-  colorSample.style.height = "2rem";
-  colorSample.style.width = "2rem";
-  colorSample.margin = "0";
+  //Add apropriate hexCode and text from selected color
   colorSample.style.backgroundColor = `#${hexCode}`;
-
   colorSpan.innerText = `#${hexCode}`
 
-
-  // li.innerText = `#${hexCode}`;
+  //append elements to DOM
   li.append(colorSample);
   li.append(colorSpan);
   colorHistoryList.append(li);
-  console.log("colorHistoryList", colorHistoryList)
-
 }
