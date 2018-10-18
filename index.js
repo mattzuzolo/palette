@@ -26,7 +26,6 @@ const maxRgbValue = 255;
 
 //Event handlers
 document.addEventListener("DOMContentLoaded", () => {
-
   //Page generates random colors on DOMContentLoaded
   colorSearch = {
     red: generateRandomStringNumber(maxRgbValue),
@@ -60,15 +59,16 @@ hexSubmitButton.onclick = function(event){
 function handleSquareClick(event) {
   //Display selectedColor div when a square is clicked for the first time
   selectedColorDiv.style.display = "inline";
-
   //obtains styling from node's style upon click
   let desiredNode;
+  //Get targeted node. Grab parent if user clicks on the text
   if(event.target.nodeName === "P"){
     desiredNode = event.target.parentNode;
   }
   else {
     desiredNode = event.target;
   }
+  //Find background-color key on object and access value.
   let nodeValueArray = desiredNode.attributes.style.nodeValue.split(";");
   let backgroundColorString = nodeValueArray.find(string => string.includes("background-color"))
   let foundColorObject = parseRgb(backgroundColorString);
@@ -185,7 +185,6 @@ function convertHexToRgb(hexString){
     blue: parseInt(bb, 16),
   }
 }
-
 
 //Declarative inputs
 function updateRgbForm({red, green, blue}){
