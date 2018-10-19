@@ -72,58 +72,56 @@ button {
     font-size: 1.5rem;
   }
 
-
-
-#div--selected-color {
-  display: none;
-  font-size: 1.5rem;
-
-}
-
-  #div--sample {
-    width: 100%;
-    height: 20vh;
-    margin-bottom: 1.5rem;
-  }
-
-#div--color-history {
-  display: none;
-  font-size: 1.5rem;
-
-}
-
-  #ul--color-history-list{
-    font-size: 2rem;
-    list-style: none;
-    padding: 0;
-  }
-  .li--history{
-    display: flex;
-    margin-top: 0.5rem;
-    margin-bottom: 0.5rem;
-  }
-
-  .div--sample-li{
-    margin-right: 1rem;
-    height: 2rem;
-    width: 2rem;
-  }
-
-#div--css-gradient{
-  display: none;
-  font-size: 1.5rem;
-}
-  .span--css-gradient{
+  #div--selected-color {
     display: none;
+    font-size: 1.5rem;
+
   }
 
-  #div--gradient-sample{
-    width: 100%;
-    height: 5rem;
-    margin-bottom: 1rem;
-    /* background: linear-gradient(90deg, #99f017 0%, #eb0817 100%); */
+    #div--sample {
+      width: 100%;
+      height: 20vh;
+      margin-bottom: 1.5rem;
+    }
+
+  #div--color-history {
+    display: none;
+    font-size: 1.5rem;
+
   }
 
-.span--bio-detail {
-  font-size: 1.5rem;
-}
+    #ul--color-history-list{
+      font-size: 2rem;
+      list-style: none;
+      padding: 0;
+    }
+
+    .li--history{
+      display: flex;
+      margin-top: 0.5rem;
+      margin-bottom: 0.5rem;
+    }
+
+    .div--sample-li{
+      margin-right: 1rem;
+      height: 2rem;
+      width: 2rem;
+    }
+
+  #div--css-gradient{
+    display: none;
+    font-size: 1.5rem;
+  }
+    .span--css-gradient{
+      display: none;
+    }
+
+    #div--gradient-sample{
+      width: 100%;
+      height: 5rem;
+      margin-bottom: 1rem;
+    }
+
+  .span--bio-detail {
+    font-size: 1.5rem;
+  }
