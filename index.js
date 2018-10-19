@@ -156,7 +156,6 @@ function resetGrid(className){
     squares[0].parentNode.removeChild(squares[0]);
   }
 }
-
 //Create grid based on passed color object
 function createGrid(colorSearch){
   //Invoke reset grid so that only one grid displays at any given moment
@@ -192,9 +191,12 @@ function createGrid(colorSearch){
 }
 
 
-//Math functions
 
-//Generates random object that assigns up to two values for RGB
+// ------------ //
+//Math functions
+// ------------ //
+
+//Generates random object that assigns up to two values of the RGB
 function randomColorObj(){
   let randomObj = {};
   let colorArray = ["red", "green", "blue"];
@@ -216,7 +218,6 @@ function randomColorObj(){
 function generateRandom(num){
   return Math.floor(Math.random() * Math.floor(num));
 }
-
 //Generates a random integer. Argument is maximum value. Outputs a string instead of number
 function generateRandomStringNumber(num){
   return prepareRgbValue(Math.floor(Math.random() * Math.floor(num))).toString();
@@ -261,7 +262,11 @@ function fillString(color){
   }
 }
 
-//Declarative inputs
+
+
+// ------------ //
+//Update forms functions
+// ------------ //
 
 //Updates forms with apropriate rgb and hex values
 function updateRgbForm({red, green, blue}){
@@ -277,11 +282,21 @@ function updateAllForms(rgbObject, hexString){
   updateHexForm(hexString)
 }
 
-//Color history
+
+
+// ------------ //
+//History functions
+// ------------ //
+
 //Adds hex codes to color history and displays a list with a sample in right column
 function addColorToHistory(hexCode){
+  //Add color to history array
   colorHistory.push(hexCode);
+
+  //Convert color to RGB
   let rgbObject = convertHexToRgb(hexCode);
+
+  //Display list if not currently displayed
   if(colorHistoryDiv.style.display !== "none"){
     colorHistoryDiv.style.display = "inline";
   }
@@ -294,7 +309,7 @@ function addColorToHistory(hexCode){
   li.className = "li--history"
   colorSample.className = "div--sample-li"
 
-  //Add apropriate hexCode and text from selected color
+  //Add apropriate background color and text from selected color
   colorSample.style.backgroundColor = `#${hexCode}`;
   colorSpan.innerText = `#${hexCode}`
 
@@ -302,26 +317,29 @@ function addColorToHistory(hexCode){
   li.append(colorSample);
   li.append(colorSpan);
   colorHistoryList.append(li);
+
+  //Update the sample gradient code with the most recent colors
   updateGradient(colorHistory)
 
   //Add event listener for when user clicks on history elements
   li.onclick = function(event){
     //update selectedColor when click on history li
-    colorHistory.push(hexCode);
     sampleColor.style.backgroundColor = `#${hexCode}`;
+    //Update forms to show data of selected color
     updateAllForms(rgbObject, hexCode);
+    //update gradient if there are at least two colors in the array
     if(colorHistory.length >= 2){
       updateGradient(colorHistory)
     }
   }
-
 }
 
 //Updates the gradient and CSS when two or more colors have been selected
 function updateGradient(colorHistory){
+  //Display sample gradient if not displayed. Update gradient section to the two most recent colors
   if(colorHistory.length >= 2){
     cssGradientDiv.style.display = "inline";
-     let gradientCSS = `linear-gradient(90deg, #${colorHistory[colorHistory.length - 1]} 0%, #${colorHistory[colorHistory.length - 2]} 100%)`
+     let gradientCSS = `linear-gradient(90deg, #${colorHistory[colorHistory.length - 1]} 0%, #${colorHistory[colorHistory.length - 2]} 100%)`;
      cssGradientSpan.innerText = `background: ${gradientCSS};`;
      cssGradientSample.style.background = gradientCSS;
   }
