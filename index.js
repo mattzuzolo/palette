@@ -2,30 +2,27 @@
 //Adjust gridHeight value to change grid size
 const gridHeight = 5;
 const gridSize = gridHeight ** 2;
-//padding-bottom and width must be 1:1 ratio for div to be square.
-// const squareSize = `${(100 / gridHeight) - 0.25}%`;
 const squareSize = `${(100 / gridHeight)}%`;
 
-
 //DOM ELEMENTS
-const grid = document.getElementById("div--grid")
+const grid = document.getElementById("div--grid");
 const rightColumn = document.getElementById("div--right-column");
-const navBar = document.getElementById("div--nav-bar")
+const navBar = document.getElementById("div--nav-bar");
 const redInput = document.getElementById("input--red");
 const greenInput = document.getElementById("input--green");
 const blueInput = document.getElementById("input--blue");
-const colorSubmitButton = document.getElementById("button--color-submit")
+const colorSubmitButton = document.getElementById("button--color-submit");
 const hexInput = document.getElementById("input--hex");
 const hexSubmitButton = document.getElementById("button--hex-submit");
 const selectedColorDiv = document.getElementById("div--selected-color");
-const sampleColor = document.getElementById("div--sample")
+const sampleColor = document.getElementById("div--sample");
 const colorHistoryDiv = document.getElementById("div--color-history");
 const colorHistoryList = document.getElementById("ul--color-history-list");
-const cssGradientDiv = document.getElementById("div--css-gradient")
+const cssGradientDiv = document.getElementById("div--css-gradient");
 const cssGradientSample = document.getElementById("div--gradient-sample");
 const cssGradientSpan = document.getElementById("span--css-gradient");
 
-//User search
+//User actions
 let colorSearch;
 let colorHistory = [];
 
