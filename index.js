@@ -142,7 +142,11 @@ function createGrid(colorSearch){
     let text = document.createElement("p");
     text.className = "p--square-hex-value";
     //Update each square to display current hex color
-    text.innerText = `#${convertRgbToHexCode(selectedColorsObject)}`;
+    let textToDisplay = convertRgbToHexCode(selectedColorsObject);
+    if(textToDisplay.length !== 6){
+      console.log("NOT 6 characters", textToDisplay)
+    }
+    text.innerText = `#${textToDisplay}`;
 
     //Create squares and add selectors and dynamic styling
     let square = document.createElement("div");
@@ -178,8 +182,6 @@ function randomColorObj(){
   }
   return randomObj;
 }
-
-
 function generateRandom(num){
   return Math.floor(Math.random() * Math.floor(num));
 }
@@ -195,8 +197,13 @@ function convertRgbToHexCode({red, green, blue}){
   else if(blue === ""){
     blue = generateRandomStringNumber(maxRgbValue);
   }
-  return `${parseInt(red).toString(16)}${parseInt(green).toString(16)}${parseInt(blue).toString(16)}`
+  let fullRed = fillString(parseInt(red).toString(16))
+  let fullGreen = fillString(parseInt(green).toString(16))
+  let fullBlue  = fillString(parseInt(blue).toString(16))
+  let full = (fullRed + fullGreen + fullBlue);
+  return full;
 }
+
 function convertHexToRgb(hexString){
   let rr = hexString.substr(0,2);
   let gg = hexString.substr(2,2);
@@ -205,6 +212,15 @@ function convertHexToRgb(hexString){
     red: parseInt(rr, 16),
     green: parseInt(gg, 16),
     blue: parseInt(bb, 16),
+  }
+}
+
+function fillString(color){
+  if (color.length < 2){
+    return ("0" + color);
+  }
+  else {
+    return color;
   }
 }
 
@@ -246,7 +262,9 @@ function addColorToHistory(hexCode){
   li.append(colorSample);
   li.append(colorSpan);
   colorHistoryList.append(li);
+  updateGradient(colorHistory)
 
+  //Add event listener for when user clicks on history elements
   li.onclick = function(event){
     //update selectedColor when click on history li
     colorHistory.push(hexCode);
@@ -256,7 +274,6 @@ function addColorToHistory(hexCode){
       updateGradient(colorHistory)
     }
   }
-  updateGradient(colorHistory)
 
 }
 
