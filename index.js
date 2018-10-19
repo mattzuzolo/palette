@@ -227,10 +227,11 @@ function generateRandomStringNumber(num){
 function convertRgbToHexCode({red, green, blue}){
   if(red == ""){
     red = generateRandomStringNumber(maxRgbValue);
-  } else if(green == ""){
+  }
+  if(green == ""){
     green = generateRandomStringNumber(maxRgbValue);
   }
-  else if(blue === ""){
+  if(blue === ""){
     blue = generateRandomStringNumber(maxRgbValue);
   }
   let fullRed = fillString(parseInt(red).toString(16))
@@ -333,7 +334,6 @@ function addColorToHistory(hexCode){
     }
   }
 }
-
 //Updates the gradient and CSS when two or more colors have been selected
 function updateGradient(colorHistory){
   //Display sample gradient if not displayed. Update gradient section to the two most recent colors
