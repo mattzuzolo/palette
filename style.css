@@ -77,6 +77,8 @@ button {
 
 #div--selected-color {
   display: none;
+  font-size: 1.5rem;
+
 }
 
   #div--sample {
@@ -87,6 +89,8 @@ button {
 
 #div--color-history {
   display: none;
+  font-size: 1.5rem;
+
 }
 
   #ul--color-history-list{
@@ -104,6 +108,14 @@ button {
     margin-right: 1rem;
     height: 2rem;
     width: 2rem;
+  }
+
+#div--css-gradient{
+  display: none;
+  font-size: 1.5rem;
+}
+  .span--css-gradient{
+    display: none;
   }
 
 .span--bio-detail {

@@ -19,6 +19,8 @@ const blueInput = document.getElementById("input--blue");
 const hexInput = document.getElementById("input--hex");
 const colorSubmitButton = document.getElementById("button--color-submit")
 const hexSubmitButton = document.getElementById("button--hex-submit");
+const cssGradientDiv = document.getElementById("div--css-gradient")
+const cssGradientSpan = document.getElementById("span--css-gradient");
 
 
 //User search
@@ -222,6 +224,7 @@ function updateAllForms(rgbObject, hexString){
 
 //Color history
 function addColorToHistory(hexCode){
+  colorHistory.push(hexCode);
   let rgbObject = convertHexToRgb(hexCode);
   if(colorHistoryDiv.style.display !== "none"){
     colorHistoryDiv.style.display = "inline";
@@ -246,7 +249,20 @@ function addColorToHistory(hexCode){
 
   li.onclick = function(event){
     //update selectedColor when click on history li
+    colorHistory.push(hexCode);
     sampleColor.style.backgroundColor = `#${hexCode}`;
-    updateAllForms(rgbObject, hexCode)
+    updateAllForms(rgbObject, hexCode);
+    if(colorHistory.length >= 2){
+      updateGradient(colorHistory)
+    }
+  }
+  updateGradient(colorHistory)
+
+}
+
+function updateGradient(colorHistory){
+  if(colorHistory.length >= 2){
+    cssGradientDiv.style.display = "inline";
+    cssGradientSpan.innerText = `background: linear-gradient(90deg, #${colorHistory[colorHistory.length - 1]} 0%, #${colorHistory[colorHistory.length - 2]} 100%);`
   }
 }
