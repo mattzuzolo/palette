@@ -234,9 +234,9 @@ function convertRgbToHexCode({red, green, blue}){
   if(blue === ""){
     blue = generateRandomStringNumber(maxRgbValue);
   }
-  let fullRed = fillString(parseInt(red).toString(16))
-  let fullGreen = fillString(parseInt(green).toString(16))
-  let fullBlue  = fillString(parseInt(blue).toString(16))
+  let fullRed = prepateHexValue(parseInt(red).toString(16))
+  let fullGreen = prepateHexValue(parseInt(green).toString(16))
+  let fullBlue  = prepateHexValue(parseInt(blue).toString(16))
   let full = (fullRed + fullGreen + fullBlue);
   return full;
 }
@@ -254,7 +254,7 @@ function convertHexToRgb(hexString){
 }
 
 //Adds neccessary zeros to convert string to Hex from RGB
-function fillString(color){
+function prepateHexValue(color){
   if (color.length < 2){
     return ("0" + color);
   }
