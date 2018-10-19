@@ -9,20 +9,19 @@ const squareSize = `${(100 / gridHeight) - 0.25}%`;
 const grid = document.getElementById("div--grid")
 const rightColumn = document.getElementById("div--right-column");
 const navBar = document.getElementById("div--nav-bar")
-const selectedColorDiv = document.getElementById("div--selected-color");
-const colorHistoryDiv = document.getElementById("div--color-history");
-const colorHistoryList = document.getElementById("ul--color-history-list");
-const sampleColor = document.getElementById("div--sample")
 const redInput = document.getElementById("input--red");
 const greenInput = document.getElementById("input--green");
 const blueInput = document.getElementById("input--blue");
-const hexInput = document.getElementById("input--hex");
 const colorSubmitButton = document.getElementById("button--color-submit")
+const hexInput = document.getElementById("input--hex");
 const hexSubmitButton = document.getElementById("button--hex-submit");
+const selectedColorDiv = document.getElementById("div--selected-color");
+const sampleColor = document.getElementById("div--sample")
+const colorHistoryDiv = document.getElementById("div--color-history");
+const colorHistoryList = document.getElementById("ul--color-history-list");
 const cssGradientDiv = document.getElementById("div--css-gradient")
-const cssGradientSpan = document.getElementById("span--css-gradient");
 const cssGradientSample = document.getElementById("div--gradient-sample");
-
+const cssGradientSpan = document.getElementById("span--css-gradient");
 
 //User search
 let colorSearch;
@@ -32,16 +31,16 @@ let colorHistory = [];
 const maxRgbValue = 255;
 
 //Event handlers
+//Page will generate random colors on DOMContentLoaded
 document.addEventListener("DOMContentLoaded", () => {
-  //Page generates random colors on DOMContentLoaded
-  //generate a random object that will create a random RGB value
+  //randomColorObj() will generate a random object that will create a random RGB value and then create a grid
   colorSearch = randomColorObj();
   let foundHexCode = convertRgbToHexCode(colorSearch);
   updateRgbForm(colorSearch);
   createGrid(colorSearch);
 })
+//This function is invoked when RGB form is submitted
 colorSubmitButton.onclick = function(event){
-  //This function is invoked when RGB form is submitted
   //save colors from user input in object
   colorSearch = {
     red: redInput.value,
@@ -51,8 +50,8 @@ colorSubmitButton.onclick = function(event){
   //Updates grid based on new RGB color
   createGrid(colorSearch)
 }
+//This function is invoked when Hex form is submitted. Entire grid will display the input hex color
 hexSubmitButton.onclick = function(event){
-  //This function is invoked when Hex form is submitted
   //obtains hexString from submitted form and updates all fields with appropriate info
   let hexString = hexInput.value;
   let rgbValue = convertHexToRgb(hexString);
@@ -60,10 +59,11 @@ hexSubmitButton.onclick = function(event){
   updateAllForms(rgbValue, hexString)
   createGrid(rgbValue);
 }
+//This method handles when user clicks on one of the grid tiles
 function handleSquareClick(event) {
   //Display selectedColor div when a square is clicked for the first time
   selectedColorDiv.style.display = "inline";
-  //obtains styling from node's style upon click
+  //Click will grab the desired node. Will grab parent if child of desired node is clicked
   let desiredNode;
   //Get targeted node. Grab parent if user clicks on the text
   if(event.target.nodeName === "P"){
@@ -74,11 +74,13 @@ function handleSquareClick(event) {
   }
   //Find background-color key on object and access value.
   let nodeValueArray = desiredNode.attributes.style.nodeValue.split(";");
-  let backgroundColorString = nodeValueArray.find(string => string.includes("background-color"))
+  let backgroundColorString = nodeValueArray.find(string => string.includes("background-color"));
+  //Prepare colors to update the sample color and forms
   let foundColorObject = parseRgb(backgroundColorString);
   let foundHexCode = convertRgbToHexCode(foundColorObject);
   sampleColor.style.backgroundColor = createColorString(foundColorObject);
   updateAllForms(foundColorObject,foundHexCode);
+  //Clicking on a square will add it to color history later so user can revisit later
   addColorToHistory(foundHexCode);
 }
 
@@ -92,6 +94,7 @@ function parseRgb(backgroundColorString){
     blue: parsedArray[2],
   }
 }
+//Cleans colors for consistent manipulation after user submits
 function handleUserInput({red, green, blue}){
   let colorArray = [red, green, blue];
   let newArray = colorArray.map(color => {
@@ -108,9 +111,11 @@ function handleUserInput({red, green, blue}){
     green: newArray[2],
   }
 }
+//Converts rgb object to a CSS-usable string
 function createColorString(colorObject){
   return `rgb(${colorObject.red}, ${colorObject.green}, ${colorObject.blue})`;
 }
+//Adds zeros to beginning of colors for conversion between RGB and hex later on
 function prepareRgbValue(color){
   if(color.length < 3){
     while(color.length < 3){
@@ -144,9 +149,6 @@ function createGrid(colorSearch){
     text.className = "p--square-hex-value";
     //Update each square to display current hex color
     let textToDisplay = convertRgbToHexCode(selectedColorsObject);
-    if(textToDisplay.length !== 6){
-      console.log("NOT 6 characters", textToDisplay)
-    }
     text.innerText = `#${textToDisplay}`;
 
     //Create squares and add selectors and dynamic styling
@@ -167,6 +169,8 @@ function createGrid(colorSearch){
 
 
 //Math functions
+
+//Generates random object that assigns up to two values for RGB
 function randomColorObj(){
   let randomObj = {};
   let colorArray = ["red", "green", "blue"];
@@ -183,12 +187,18 @@ function randomColorObj(){
   }
   return randomObj;
 }
+
+//Generates random integer. Argument is the maximum value
 function generateRandom(num){
   return Math.floor(Math.random() * Math.floor(num));
 }
+
+//Generates a random integer. Argument is maximum value. Outputs a string instead of number
 function generateRandomStringNumber(num){
   return prepareRgbValue(Math.floor(Math.random() * Math.floor(num))).toString();
 }
+
+//Converts RGB object to a valid hex code. Also formats strings properly so that hex number is complete.
 function convertRgbToHexCode({red, green, blue}){
   if(red == ""){
     red = generateRandomStringNumber(maxRgbValue);
@@ -205,6 +215,7 @@ function convertRgbToHexCode({red, green, blue}){
   return full;
 }
 
+//Converts from hex to RGB value
 function convertHexToRgb(hexString){
   let rr = hexString.substr(0,2);
   let gg = hexString.substr(2,2);
@@ -216,6 +227,7 @@ function convertHexToRgb(hexString){
   }
 }
 
+//Adds neccessary zeros to convert string to Hex from RGB
 function fillString(color){
   if (color.length < 2){
     return ("0" + color);
@@ -226,6 +238,8 @@ function fillString(color){
 }
 
 //Declarative inputs
+
+//Updates forms with apropriate rgb and hex values
 function updateRgbForm({red, green, blue}){
   redInput.value = red;
   greenInput.value = green;
@@ -240,6 +254,8 @@ function updateAllForms(rgbObject, hexString){
 }
 
 //Color history
+
+//Adds hex codes to color history and displays a list with a sample in right column
 function addColorToHistory(hexCode){
   colorHistory.push(hexCode);
   let rgbObject = convertHexToRgb(hexCode);
@@ -278,6 +294,7 @@ function addColorToHistory(hexCode){
 
 }
 
+//Updates the gradient and CSS when two or more colors have been selected
 function updateGradient(colorHistory){
   if(colorHistory.length >= 2){
     cssGradientDiv.style.display = "inline";
