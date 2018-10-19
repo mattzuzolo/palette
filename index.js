@@ -30,41 +30,46 @@ let colorHistory = [];
 const maxRgbValue = 255;
 
 //Event handlers
+
 //Page will generate random colors on DOMContentLoaded
 document.addEventListener("DOMContentLoaded", () => {
-  //randomColorObj() will generate a random object that will create a random RGB value and then create a grid
+  //randomColorObj() will generate a random object with a random RGB value
   colorSearch = randomColorObj();
+  //Convert RGB to a hex code
   let foundHexCode = convertRgbToHexCode(colorSearch);
+  //Update user input form in right column with the randomized data
   updateRgbForm(colorSearch);
+  //Create a grid with the random color object
   createGrid(colorSearch);
-})
+});
 //This function is invoked when RGB form is submitted
 colorSubmitButton.onclick = function(event){
-  //save colors from user input in object
+  //save colors from user input in an object to prepare for createGrid function
   colorSearch = {
     red: redInput.value,
     green: greenInput.value,
     blue: blueInput.value,
   }
-  //Updates grid based on new RGB color
-  createGrid(colorSearch)
+  //Updates grid based on submitted RGB color
+  createGrid(colorSearch);
 }
-//This function is invoked when Hex form is submitted. Entire grid will display the input hex color
+//This function is invoked when Hex form is submitted.
 hexSubmitButton.onclick = function(event){
   //obtains hexString from submitted form and updates all fields with appropriate info
   let hexString = hexInput.value;
+  //Convert hex to RGB value to update RGB user input form
   let rgbValue = convertHexToRgb(hexString);
-  //Updating fields in declarative manner
-  updateAllForms(rgbValue, hexString)
+  //Updating user input fields
+  updateAllForms(rgbValue, hexString);
+  //Create a grid with the converted rgb value
   createGrid(rgbValue);
 }
 //This method handles when user clicks on one of the grid tiles
-function handleSquareClick(event) {
+function handleSquareClick(event){
   //Display selectedColor div when a square is clicked for the first time
   selectedColorDiv.style.display = "inline";
-  //Click will grab the desired node. Will grab parent if child of desired node is clicked
+  //Click will grab the desired node. (Will grab parent if child of desired node is clicked)
   let desiredNode;
-  //Get targeted node. Grab parent if user clicks on the text
   if(event.target.nodeName === "P"){
     desiredNode = event.target.parentNode;
   }
@@ -77,11 +82,16 @@ function handleSquareClick(event) {
   //Prepare colors to update the sample color and forms
   let foundColorObject = parseRgb(backgroundColorString);
   let foundHexCode = convertRgbToHexCode(foundColorObject);
+  //Update sample color by converting data into CSS-usable string
   sampleColor.style.backgroundColor = createColorString(foundColorObject);
-  updateAllForms(foundColorObject,foundHexCode);
+  //Update forms to display current color data
+  updateAllForms(foundColorObject, foundHexCode);
   //Clicking on a square will add it to color history later so user can revisit later
   addColorToHistory(foundHexCode);
 }
+
+
+
 
 //Input handling
 function parseRgb(backgroundColorString){
