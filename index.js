@@ -3,7 +3,9 @@
 const gridHeight = 5;
 const gridSize = gridHeight ** 2;
 //padding-bottom and width must be 1:1 ratio for div to be square.
-const squareSize = `${(100 / gridHeight) - 0.25}%`;
+// const squareSize = `${(100 / gridHeight) - 0.25}%`;
+const squareSize = `${(100 / gridHeight)}%`;
+
 
 //DOM ELEMENTS
 const grid = document.getElementById("div--grid")
@@ -254,7 +256,6 @@ function updateAllForms(rgbObject, hexString){
 }
 
 //Color history
-
 //Adds hex codes to color history and displays a list with a sample in right column
 function addColorToHistory(hexCode){
   colorHistory.push(hexCode);

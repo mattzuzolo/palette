@@ -48,11 +48,12 @@ button {
 #div--grid {
   display: flex;
   flex-wrap: wrap;
+  max-width: 100vh;
 }
 
 /*Right Column styling*/
 .div--right-column {
-  max-width: 35vh;
+  max-width: 30vh;
   margin-left: 2.5rem;
   margin-right: 2.5rem;
 }
@@ -65,14 +66,10 @@ button {
     font-size: 1.5rem;
   }
 
-  .square {
-    border: solid white 0.1vh;
-  }
-
     .p--square-hex-value {
       color: white;
       text-align: center;
-      font-size: 2rem;
+      font-size: 2.5rem;
     }
 
 #div--selected-color {
