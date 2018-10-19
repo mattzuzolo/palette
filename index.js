@@ -29,7 +29,11 @@ let colorHistory = [];
 //Style settings
 const maxRgbValue = 255;
 
+
+
+// ------------ //
 //Event handlers
+// ------------ //
 
 //Page will generate random colors on DOMContentLoaded
 document.addEventListener("DOMContentLoaded", () => {
@@ -92,11 +96,14 @@ function handleSquareClick(event){
 
 
 
-
+// ------------ //
 //Input handling
+// ------------ //
+
+//parses RGB string and returns an RGB object
 function parseRgb(backgroundColorString){
-  //parses style in form of string obtained from DOM
-  let parsedArray = backgroundColorString.replace(/[^0-9$.,]/g, '').split(",")
+  //remove unneccessary characters and split into array
+  let parsedArray = backgroundColorString.replace(/[^0-9$.,]/g, '').split(",");
   return colorSearch = {
     red: parsedArray[0],
     green: parsedArray[1],
@@ -105,7 +112,9 @@ function parseRgb(backgroundColorString){
 }
 //Cleans colors for consistent manipulation after user submits
 function handleUserInput({red, green, blue}){
+  //Create array from arguments
   let colorArray = [red, green, blue];
+  //Iterate over array and prepare colors either by randomly assigning value or processing string to be usable
   let newArray = colorArray.map(color => {
     if(color === ""){
       return generateRandomStringNumber(maxRgbValue);
@@ -124,7 +133,7 @@ function handleUserInput({red, green, blue}){
 function createColorString(colorObject){
   return `rgb(${colorObject.red}, ${colorObject.green}, ${colorObject.blue})`;
 }
-//Adds zeros to beginning of colors for conversion between RGB and hex later on
+//Adds zeros to beginning of color string for conversion between RGB and hex later on
 function prepareRgbValue(color){
   if(color.length < 3){
     while(color.length < 3){
