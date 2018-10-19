@@ -145,28 +145,34 @@ function prepareRgbValue(color){
 
 
 
+// ------------ //
 //Grid management
+// ------------ //
+
+//deletes grid so only one is present simulatenously
 function resetGrid(className){
   let squares = document.getElementsByClassName(className);
   while (0 < squares.length){
     squares[0].parentNode.removeChild(squares[0]);
   }
 }
+
+//Create grid based on passed color object
 function createGrid(colorSearch){
-  //Reset grid so that only one grid displays at any given moment
+  //Invoke reset grid so that only one grid displays at any given moment
   resetGrid("square");
   for(let i = 0; i < gridSize; i++){
     //Find or generate colors that will determine each square's css
     //functions cleans and prepare user input to be used below. Generates random colors if neccessary
     let selectedColorsObject = handleUserInput(colorSearch);
-    // console.log(`selectedColorsObject`, selectedColorsObject)
-    let selectedColorsString = createColorString(selectedColorsObject)
+    let selectedColorsString = createColorString(selectedColorsObject);
+    //Prepare text to display on squares
+    let textToDisplay = convertRgbToHexCode(selectedColorsObject);
 
-    //Create text nodes that display square color
+    //Create text nodes that display square color and add CSS class to it
     let text = document.createElement("p");
     text.className = "p--square-hex-value";
     //Update each square to display current hex color
-    let textToDisplay = convertRgbToHexCode(selectedColorsObject);
     text.innerText = `#${textToDisplay}`;
 
     //Create squares and add selectors and dynamic styling
