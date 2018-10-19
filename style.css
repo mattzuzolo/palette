@@ -118,6 +118,13 @@ button {
     display: none;
   }
 
+  #div--gradient-sample{
+    width: 100%;
+    height: 5rem;
+    margin-bottom: 1rem;
+    /* background: linear-gradient(90deg, #99f017 0%, #eb0817 100%); */
+  }
+
 .span--bio-detail {
   font-size: 1.5rem;
 }

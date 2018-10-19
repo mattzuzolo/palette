@@ -21,6 +21,7 @@ const colorSubmitButton = document.getElementById("button--color-submit")
 const hexSubmitButton = document.getElementById("button--hex-submit");
 const cssGradientDiv = document.getElementById("div--css-gradient")
 const cssGradientSpan = document.getElementById("span--css-gradient");
+const cssGradientSample = document.getElementById("div--gradient-sample");
 
 
 //User search
@@ -280,6 +281,8 @@ function addColorToHistory(hexCode){
 function updateGradient(colorHistory){
   if(colorHistory.length >= 2){
     cssGradientDiv.style.display = "inline";
-    cssGradientSpan.innerText = `background: linear-gradient(90deg, #${colorHistory[colorHistory.length - 1]} 0%, #${colorHistory[colorHistory.length - 2]} 100%);`
+     let gradientCSS = `background: linear-gradient(90deg, #${colorHistory[colorHistory.length - 1]} 0%, #${colorHistory[colorHistory.length - 2]} 100%);`
+     cssGradientSpan.innerText = gradientCSS;
+     cssGradientSample.style.background = `linear-gradient(90deg, #${colorHistory[colorHistory.length - 1]} 0%, #${colorHistory[colorHistory.length - 2]} 100%)`
   }
 }
