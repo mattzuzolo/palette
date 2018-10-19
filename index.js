@@ -282,7 +282,7 @@ function updateGradient(colorHistory){
   if(colorHistory.length >= 2){
     cssGradientDiv.style.display = "inline";
      let gradientCSS = `linear-gradient(90deg, #${colorHistory[colorHistory.length - 1]} 0%, #${colorHistory[colorHistory.length - 2]} 100%)`
-     cssGradientSpan.innerText = `background:" ${gradientCSS};`;
+     cssGradientSpan.innerText = `background: ${gradientCSS};`;
      cssGradientSample.style.background = gradientCSS;
   }
 }
